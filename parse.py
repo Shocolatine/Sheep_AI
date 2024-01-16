@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
 from rectangle import tile
-from create_grid import create_grid
+from create_grid import *
+from prompt import create_image_from_grid
 
 data = {}
 img = cv2.imread('images/grey_img.png')
@@ -18,12 +19,20 @@ for i, (temp_size, color) in enumerate(zip(temp_sizes, colors), start=1):
     print(ens)
     data.update(ens)
 
+print(data)
 # Create and print the grid
 grid = create_grid(data)
 print(grid)
 
+new_grid = remove_and_add_line(grid)
+print(new_grid)
+
+image = create_image_from_grid(grid)
+# grid2 = add_random_line(grid)
+# print(grid2)
+
 cv2.imwrite('images/result.png', img)
 result = cv2.imread('images/result.png')
-cv2.imshow('resultat', result)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.imshow('resultat', result)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
